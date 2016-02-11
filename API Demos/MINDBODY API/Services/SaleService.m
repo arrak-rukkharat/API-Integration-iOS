@@ -192,7 +192,7 @@
       }] resume];
 }
 
-+ (void)GetCartTotal:(NSArray*)cartItems clientID:(NSString*)clientID promo:(NSString*)promocode withBlock:(void (^)(ReceiptResult *result))block
++ (void)GetCartTotalWithCartItems:(NSArray*)cartItems clientID:(NSString*)clientID promo:(NSString*)promocode withBlock:(void (^)(ReceiptResult *result))block
 {
     NSURLRequest *request = [XMLSaleService SOAPGetCartTotal:cartItems clientID:clientID promo:promocode];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -236,7 +236,7 @@
       }] resume];
 }*/
 
-+ (void)CheckoutAppointmentSchedule:(ScheduleItem*)schedule serviceID:(NSString*)serviceID withPayment:(PaymentInfo*)payment forClientID:(NSString*)clientID withBlock:(void (^)(ReceiptResult *result))block
++ (void)BuyAndBookAnAppointmentWithSchedule:(ScheduleItem*)schedule serviceID:(NSString*)serviceID withPayment:(PaymentInfo*)payment forClientID:(NSString*)clientID withBlock:(void (^)(ReceiptResult *result))block
 {
     CartItem *ci = [CartItem new];
     ci.Quantity = 1;
@@ -255,7 +255,7 @@
       }] resume];
 }
 
-+ (void)CheckoutAndEnrollClassID:(NSString*)classID serviceID:(NSString*)serviceID withPayment:(PaymentInfo*)payment forClientID:(NSString*)clientID withBlock:(void (^)(ReceiptResult *result))block
++ (void)BuyAndBookAClassWithClassID:(NSString*)classID serviceID:(NSString*)serviceID withPayment:(PaymentInfo*)payment forClientID:(NSString*)clientID withBlock:(void (^)(ReceiptResult *result))block
 {
     CartItem *ci = [CartItem new];
     ci.Quantity = 1;

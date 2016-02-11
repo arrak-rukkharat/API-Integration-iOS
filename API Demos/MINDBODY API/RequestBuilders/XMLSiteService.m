@@ -97,7 +97,7 @@
     [soap appendString:[NSString stringWithFormat:@"<SourceName>%@</SourceName>", src.SourceName]];
     [soap appendString:[NSString stringWithFormat:@"<Password>%@</Password>", src.Password]];
     [soap appendString:[NSString stringWithFormat:@"<SiteIDs><int>%@</int></SiteIDs>", src.SiteID]];
-    [soap appendString:@"</SourceCredentials><OnlineOnly>true</OnlineOnly>"];
+    [soap appendString:@"</SourceCredentials><OnlineOnly>false</OnlineOnly>"];
     [soap appendString:@"</Request></GetPrograms></soapenv:Body></soapenv:Envelope>"];
     
     NSURL *url = [NSURL URLWithString:ENDPOINT_SITE];

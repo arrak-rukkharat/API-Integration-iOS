@@ -26,7 +26,7 @@
         // Results from today to 2020
         NSDate *end = [Utils convertISOToDate:@"2020-01-01T00:00:00"];
         
-        [ClientService GetClientSchedule:clientID endDate:end withBlock:^(VisitsResult *result)
+        [ClientService GetClientScheduleWithClientID:clientID endDate:end withBlock:^(VisitsResult *result)
          {
              dispatch_async(dispatch_get_main_queue(), ^{
                  if (result.ErrorCode == 200)

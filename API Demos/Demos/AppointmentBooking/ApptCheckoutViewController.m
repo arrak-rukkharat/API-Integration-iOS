@@ -101,7 +101,7 @@
     
     currentPassID = item.ID;
     
-    [SaleService GetCartTotal:cartItems clientID:currentClientID promo:nil withBlock:^(ReceiptResult *result)
+    [SaleService GetCartTotalWithCartItems:cartItems clientID:currentClientID promo:nil withBlock:^(ReceiptResult *result)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             

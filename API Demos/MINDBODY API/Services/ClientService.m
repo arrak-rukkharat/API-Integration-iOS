@@ -10,7 +10,7 @@
 
 @implementation ClientService
 
-+ (void)GetClients:(NSArray*)IDs withBlock:(void (^)(ClientsResult* result))block
++ (void)GetClientsByIDs:(NSArray*)IDs withBlock:(void (^)(ClientsResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClients:IDs :nil :DataDetailFull :0];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -22,7 +22,7 @@
       }] resume];
 }
 
-+ (void)SearchClients:(NSString*)searchText resultLimit:(int)limit withBlock:(void (^)(ClientsResult* result))block
++ (void)SearchClientsWithText:(NSString*)searchText resultLimit:(int)limit withBlock:(void (^)(ClientsResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClients:nil :searchText :DataDetailBasic :limit];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -46,7 +46,7 @@
       }] resume];
 }
 
-+ (void)UpdateClient:(Client*)client clientID:(NSString*)ID withBlock:(void (^)(ClientResult* result))block
++ (void)UpdateClient:(Client*)client forClientID:(NSString*)ID withBlock:(void (^)(ClientResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPUpdateClient:client clientID:ID];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -58,7 +58,7 @@
       }] resume];
 }
 
-+ (void)UpdateClientCreditCard:(ClientCreditCard*)card clientID:(NSString*)ID withBlock:(void (^)(ClientResult* result))block
++ (void)UpdateClientCreditCard:(ClientCreditCard*)card forClientID:(NSString*)ID withBlock:(void (^)(ClientResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPUpdateClientCreditCard:card clientID:ID];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -70,7 +70,7 @@
       }] resume];
 }
 
-+ (void)GetClientCreditCard:(NSString*)clientID withBlock:(void (^)(CreditCardResult* result))block
++ (void)GetStoredCreditCardWithClientID:(NSString*)clientID withBlock:(void (^)(CreditCardResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClientCreditCard:clientID];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -82,7 +82,7 @@
       }] resume];
 }
 
-+ (void)GetClientVisitHistory:(NSString*)clientID startDate:(NSDate*)date withBlock:(void (^)(VisitsResult* result))block
++ (void)GetVisitHistoryWithClientID:(NSString*)clientID startDate:(NSDate*)date withBlock:(void (^)(VisitsResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClientVisits:clientID startDate:date];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -94,7 +94,7 @@
       }] resume];
 }
 
-+ (void)GetClientAccountBalances:(NSString*)clientID withBlock:(void (^)(ClientAccountBalancesResult* result))block
++ (void)GetAccountBalancesWithClientID:(NSString*)clientID withBlock:(void (^)(ClientAccountBalancesResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClientAccountBalances:clientID];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -130,7 +130,7 @@
       }] resume];
 }
 
-+ (void)GetClientSchedule:(NSString*)clientID endDate:(NSDate*)date withBlock:(void (^)(VisitsResult* result))block
++ (void)GetClientScheduleWithClientID:(NSString*)clientID endDate:(NSDate*)date withBlock:(void (^)(VisitsResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClientSchedule:clientID endDate:date];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -166,7 +166,7 @@
       }] resume];
 }
 
-+ (void)GetClientServices:(NSString*)clientID serviceCategoryIDs:(NSMutableArray*)serviceCategoryIDs startDate:(NSDate*)startDate endDate:(NSDate*)endDate withBlock:(void (^)(ClientServicesResult* result))block
++ (void)GetClientServicesWithClientID:(NSString*)clientID serviceCategoryIDs:(NSMutableArray*)serviceCategoryIDs startDate:(NSDate*)startDate endDate:(NSDate*)endDate withBlock:(void (^)(ClientServicesResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClientServices:clientID serviceCategoryIDs:serviceCategoryIDs classID:nil sessionTypeIDs:nil startDate:startDate endDate:endDate];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -178,7 +178,7 @@
       }] resume];
 }
 
-+ (void)GetClientServices:(NSString*)clientID sessionTypeIDs:(NSMutableArray*)sessionTypeIDs startDate:(NSDate*)startDate endDate:(NSDate*)endDate withBlock:(void (^)(ClientServicesResult* result))block
++ (void)GetClientServicesWithClientID:(NSString*)clientID sessionTypeIDs:(NSMutableArray*)sessionTypeIDs startDate:(NSDate*)startDate endDate:(NSDate*)endDate withBlock:(void (^)(ClientServicesResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClientServices:clientID serviceCategoryIDs:nil classID:nil sessionTypeIDs:sessionTypeIDs startDate:startDate endDate:endDate];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -190,7 +190,7 @@
       }] resume];
 }
 
-+ (void)GetClientServices:(NSString*)clientID classID:(NSString*)classID serviceCategoryIDs:(NSMutableArray*)serviceCategoryIDs startDate:(NSDate*)startDate endDate:(NSDate*)endDate withBlock:(void (^)(ClientServicesResult* result))block
++ (void)GetClientServicesWithClientID:(NSString*)clientID classID:(NSString*)classID serviceCategoryIDs:(NSMutableArray*)serviceCategoryIDs startDate:(NSDate*)startDate endDate:(NSDate*)endDate withBlock:(void (^)(ClientServicesResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClientServices:clientID serviceCategoryIDs:serviceCategoryIDs classID:classID sessionTypeIDs:nil startDate:startDate endDate:endDate];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -214,7 +214,30 @@
       }] resume];
 }
 
-+ (void)GetClientServices:(NSString*)clientID sessionTypeIDs:(NSMutableArray*)sessionTypeIDs withBlock:(void (^)(ClientServicesResult* result))block
++ (void)GetClientServicesWithClientID:(NSString*)clientID withBlock:(void (^)(ClientServicesResult* result))block
+{
+    [SiteService GetServiceCategoriesTypeAllWithBlock:^(ServiceCategoriesResult *result)
+     {
+         NSMutableArray *serviceCategoryIDs = [NSMutableArray new];
+         for (ServiceCategory *obj in result.Programs)
+         {
+             [serviceCategoryIDs addObject:obj.ID];
+         }
+         NSDate *start = [Utils convertISOToDate:@"2010-01-01T00:00:00"];
+         NSDate *end = [Utils convertISOToDate:@"2030-01-01T00:00:00"];
+         NSURLRequest *request = [XMLClientService SOAPGetClientServices:clientID serviceCategoryIDs:serviceCategoryIDs classID:nil sessionTypeIDs:nil startDate:start endDate:end];
+         NSURLSession *session = [NSURLSession sharedSession];
+         [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+           {
+               ClientServicesResult *result = [ClientServicesResult new];
+               [result mapData:data];
+               
+               block(result);
+           }] resume];
+     }];
+}
+
++ (void)GetClientServicesWithClientID:(NSString*)clientID sessionTypeIDs:(NSMutableArray*)sessionTypeIDs withBlock:(void (^)(ClientServicesResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClientServices:clientID serviceCategoryIDs:nil classID:nil sessionTypeIDs:sessionTypeIDs startDate:nil endDate:nil];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -250,7 +273,7 @@
       }] resume];
 }
 
-+ (void)ValidateLogin:(NSString*)username password:(NSString*)password withBlock:(void (^)(ClientResult* result))block
++ (void)ValidateLoginWithUsername:(NSString*)username password:(NSString*)password withBlock:(void (^)(ClientResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPValidateLogin:username password:password];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -262,7 +285,7 @@
       }] resume];
 }
 
-+ (void)GetClientPurchases:(NSString*)clientID startDate:(NSDate*)startDate endDate:(NSDate*)endDate withBlock:(void (^)(PurchasesResult* result))block
++ (void)GetClientPurchasesWithClientID:(NSString*)clientID startDate:(NSDate*)startDate endDate:(NSDate*)endDate withBlock:(void (^)(PurchasesResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClientPurchases:clientID startDate:startDate endDate:endDate];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -274,7 +297,7 @@
       }] resume];
 }
 
-+ (void)GetClientMemberships:(NSString*)clientID byLocationIDOrNil:(NSString*)locationID withBlock:(void (^)(ClientMembershipsResult* result))block
++ (void)GetClientMembershipsWithClientID:(NSString*)clientID byLocationIDOrNil:(NSString*)locationID withBlock:(void (^)(ClientMembershipsResult* result))block
 {
     NSURLRequest *request = [XMLClientService SOAPGetClientMemberships:clientID byLocationIDOrNil:locationID];
     NSURLSession *session = [NSURLSession sharedSession];

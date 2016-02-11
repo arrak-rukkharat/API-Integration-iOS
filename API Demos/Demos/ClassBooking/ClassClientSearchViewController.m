@@ -84,7 +84,7 @@
     if (![searchBar.text isEqualToString:@""])
     {
         [progressDialog show];
-        [ClientService SearchClients:searchBar.text resultLimit:50 withBlock:^(ClientsResult *result)
+        [ClientService SearchClientsWithText:searchBar.text resultLimit:50 withBlock:^(ClientsResult *result)
          {
              dispatch_async(dispatch_get_main_queue(), ^{
                  [progressDialog dismissWithClickedButtonIndex:0 animated:YES];

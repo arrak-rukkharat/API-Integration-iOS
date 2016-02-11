@@ -44,7 +44,7 @@
     NSDate *start = [Utils convertISOToDate:@"2010-01-01T00:00:00"];
     NSDate *end = [Utils convertISOToDate:@"2020-01-01T00:00:00"];
     
-    [ClientService GetClientServices:clientID classID:classID serviceCategoryIDs:programIDs startDate:start endDate:end withBlock:^(ClientServicesResult *result)
+    [ClientService GetClientServicesWithClientID:clientID classID:classID serviceCategoryIDs:programIDs startDate:start endDate:end withBlock:^(ClientServicesResult *result)
      {
          dispatch_async(dispatch_get_main_queue(), ^{
              if (result.ErrorCode == 200)
@@ -108,8 +108,7 @@
     if (buttonIndex == 1)
     {
         [progressDialog show];
-        
-        [ClassService AddClient:currentClientID toClass:currentClassID serviceID:currentPassID sendClientEmail:NO withBlock:^(ClassResult *result)
+        [ClassService AddClientToClassWithClientID:currentClientID classID:currentClassID serviceID:currentPassID sendClientEmail:NO  withBlock:^(ClassResult *result)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 

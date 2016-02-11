@@ -25,7 +25,7 @@
         self.tableView.allowsSelection = NO;
         // Results from 2010
         NSDate *start = [Utils convertISOToDate:@"2010-01-01T00:00:00"];
-        [ClientService GetClientVisitHistory:clientID startDate:start withBlock:^(VisitsResult *result)
+        [ClientService GetVisitHistoryWithClientID:clientID startDate:start withBlock:^(VisitsResult *result)
          {
              dispatch_async(dispatch_get_main_queue(), ^{
                  if (result.ErrorCode == 200)

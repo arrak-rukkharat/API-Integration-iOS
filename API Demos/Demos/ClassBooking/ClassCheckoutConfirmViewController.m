@@ -51,7 +51,7 @@
 - (void)loadClient
 {
     NSArray *clientID = [[NSArray alloc] initWithObjects:checkoutClientID, nil];
-    [ClientService GetClients:clientID withBlock:^(ClientsResult *result)
+    [ClientService GetClientsByIDs:clientID withBlock:^(ClientsResult *result)
      {
          dispatch_async(dispatch_get_main_queue(), ^{
              
@@ -77,7 +77,7 @@
     payment.AmountTotal = checkoutTotal;
     payment.SendEmail = NO;
     
-    [SaleService CheckoutAndEnrollClassID:checkoutClass.ID serviceID:checkoutService.ID withPayment:payment forClientID:checkoutClientID withBlock:^(ReceiptResult *result)
+    [SaleService BuyAndBookAClassWithClassID:checkoutClass.ID serviceID:checkoutService.ID withPayment:payment forClientID:checkoutClientID withBlock:^(ReceiptResult *result)
      {
          dispatch_async(dispatch_get_main_queue(), ^{
              

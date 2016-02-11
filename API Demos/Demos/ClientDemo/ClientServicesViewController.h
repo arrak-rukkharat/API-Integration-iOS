@@ -11,7 +11,10 @@
 @interface ClientServicesViewController : UITableViewController
 {
     NSArray *services;
+    NSArray *allServices;
     NSArray *memberships;
+    NSMutableArray *activeServices;
+    BOOL showActiveOnly;
 }
 
 - (id)initWithClientID:(NSString*)clientID;

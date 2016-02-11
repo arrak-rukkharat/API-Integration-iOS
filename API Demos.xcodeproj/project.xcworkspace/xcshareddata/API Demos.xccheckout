@@ -10,6 +10,8 @@
 	<string>API Demos</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>91A9935385E8FAF464E4F79199CED2A6C9EB9840</key>
+		<string>https://github.com/arrak-rukkharat/API-Integration-iOS.git</string>
 		<key>AB9AAC2B55240713CEEEE058C3464809B568DF03</key>
 		<string>https://bitbucket.org/arukkhar/api-demo.git</string>
 	</dict>
@@ -17,17 +19,27 @@
 	<string>API Demos.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>AB9AAC2B55240713CEEEE058C3464809B568DF03</key>
+		<key>91A9935385E8FAF464E4F79199CED2A6C9EB9840</key>
 		<string>../..</string>
+		<key>AB9AAC2B55240713CEEEE058C3464809B568DF03</key>
+		<string>../../../API%20DEMO</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://bitbucket.org/arukkhar/api-demo.git</string>
+	<string>https://github.com/arrak-rukkharat/API-Integration-iOS.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>AB9AAC2B55240713CEEEE058C3464809B568DF03</string>
+	<string>91A9935385E8FAF464E4F79199CED2A6C9EB9840</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>91A9935385E8FAF464E4F79199CED2A6C9EB9840</string>
+			<key>IDESourceControlWCCName</key>
+			<string>API-iOS</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

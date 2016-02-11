@@ -23,42 +23,61 @@
         
         services = [[NSArray alloc] init];
         memberships = [[NSArray alloc] init];
+        activeServices = [[NSMutableArray alloc] init];
+        
         self.tableView.allowsSelection = NO;
-        [SiteService GetServiceCategoriesTypeAllWithBlock:^(ServiceCategoriesResult *result)
-         {
-             [self loadServices:result.Programs :clientID];
-         }];
-
+        
+        [self loadServices:clientID];
     }
     return self;
 }
 
-- (void)loadServices:(NSMutableArray*)programs :(NSString*)clientID
+- (void)viewDidLoad
 {
-    // Get client's passes
-    NSMutableArray *programIDs = [NSMutableArray new];
-    for (ServiceCategory *obj in programs)
-    {
-        [programIDs addObject:obj.ID];
-    }
+    [super viewDidLoad];
+    UIBarButtonItem *btShowAll = [[UIBarButtonItem alloc] initWithTitle:@"All" style:UIBarButtonItemStylePlain target:self action:@selector(showAllServices)];
+    UIBarButtonItem *btShowActive = [[UIBarButtonItem alloc] initWithTitle:@"Active Only" style:UIBarButtonItemStylePlain target:self action:@selector(showActiveServices)];
     
-    // Results from today to 2020
-    NSDate *start = [Utils convertISOToDate:@"2010-01-01T00:00:00"];
-    NSDate *end = [Utils convertISOToDate:@"2020-01-01T00:00:00"];
-    
-    [ClientService GetClientServices:clientID serviceCategoryIDs:programIDs startDate:start endDate:end withBlock:^(ClientServicesResult *result)
+    self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects: btShowActive, btShowAll, nil];
+}
+
+- (void)showActiveServices
+{
+    showActiveOnly = YES;
+    services = activeServices;
+    [self.tableView reloadData];
+}
+
+- (void)showAllServices
+{
+    showActiveOnly = NO;
+    services = allServices;
+    [self.tableView reloadData];
+}
+
+- (void)loadServices:(NSString*)clientID
+{
+    // Get client's purchased services
+    [ClientService GetClientServicesWithClientID:clientID withBlock:^(ClientServicesResult *result)
      {
          dispatch_async(dispatch_get_main_queue(), ^{
              if (result.ErrorCode == 200)
              {
-                 services = (NSArray*)result.Services;
-                 [self.tableView reloadData];
+                 allServices = (NSArray*)result.Services;
+                 for (Service *item in allServices)
+                 {
+                     if (item.Current)
+                     {
+                         [activeServices addObject:item];
+                     }
+                 }
+                 [self showAllServices];
              }
          });
      }];
     
     // Get client's memberships
-    [ClientService GetClientMemberships:clientID byLocationIDOrNil:nil withBlock:^(ClientMembershipsResult *result)
+    [ClientService GetClientMembershipsWithClientID:clientID byLocationIDOrNil:nil withBlock:^(ClientMembershipsResult *result)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (result.ErrorCode == 200)

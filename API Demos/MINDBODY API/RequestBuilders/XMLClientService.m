@@ -687,7 +687,7 @@
     if (endDate) [soap appendString:[NSString stringWithFormat:@"<EndDate>%@</EndDate>", [Utils dateToString:endDate format:ISO_DATE_FORMAT]]];
     
     [soap appendString:@"<XMLDetail>Full</XMLDetail>"];
-    [soap appendString:@"<ShowActiveOnly>true</ShowActiveOnly>"];
+    [soap appendString:@"<ShowActiveOnly>false</ShowActiveOnly>"];
     
     [soap appendString:@"</Request></GetClientServices></soapenv:Body></soapenv:Envelope>"];
     

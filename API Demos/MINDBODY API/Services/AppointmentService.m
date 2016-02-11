@@ -10,7 +10,7 @@
 
 @implementation AppointmentService
 
-+ (void) GetAppointmentsForStaffID:(NSString*)staffID fromDate:(NSDate*)startDate toDate:(NSDate*)endDate withBlock:(void (^)(AppointmentsResult *result))block
++ (void) GetStaffAppointmentsWithStaffID:(NSString*)staffID betweenDate:(NSDate*)startDate andDate:(NSDate*)endDate withBlock:(void (^)(AppointmentsResult *result))block
 {
     NSURLRequest *request = [XMLApptService SOAPGetStaffAppointments:nil staffID:staffID clientID:nil locationID:nil startDate:startDate endDate:endDate];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -58,7 +58,7 @@
       }] resume];
 }
 
-+ (void)UpdateAppointmentStartDateTime:(NSDate*)startTime forAppointmentID:(NSString*)appointmentID sendEmail:(BOOL)sendEmail withBlock:(void (^)(AppointmentResult *result))block
++ (void)UpdateAppointmentStartDateTimeWithID:(NSString*)appointmentID startDateTime:(NSDate*)startTime sendEmail:(BOOL)sendEmail withBlock:(void (^)(AppointmentResult *result))block
 {
     NSURLRequest *request = [XMLApptService SOAPAddOrUpdateAppointments:appointmentID staffID:nil clientID:nil locationID:nil serviceID:nil  sessionTypeID:nil startDateTime:startTime isUpdating:YES notes:nil execute:nil sendEmail:sendEmail];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -70,7 +70,7 @@
       }] resume];
 }
 
-+ (void)UpdateAppointmentStaff:(NSString*)staffID forAppointmentID:(NSString*)appointmentID sendEmail:(BOOL)sendEmail withBlock:(void (^)(AppointmentResult *result))block
++ (void)UpdateAppointmentTrainerWithAppointmentID:(NSString*)appointmentID staffID:(NSString*)staffID  sendEmail:(BOOL)sendEmail withBlock:(void (^)(AppointmentResult *result))block
 {
     NSURLRequest *request = [XMLApptService SOAPAddOrUpdateAppointments:appointmentID staffID:staffID clientID:nil locationID:nil serviceID:nil  sessionTypeID:nil startDateTime:nil isUpdating:YES notes:nil execute:nil sendEmail:sendEmail];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -82,7 +82,7 @@
       }] resume];
 }
 
-+ (void)UpdateAppointmentNotes:(NSString*)notes forAppointmentID:(NSString*)appointmentID withBlock:(void (^)(AppointmentResult *result))block
++ (void)UpdateAppointmentNotesWithAppointmentID:(NSString*)appointmentID notes:(NSString*)notes  withBlock:(void (^)(AppointmentResult *result))block
 {
     NSURLRequest *request = [XMLApptService SOAPAddOrUpdateAppointments:appointmentID staffID:nil clientID:nil locationID:nil serviceID:nil  sessionTypeID:nil startDateTime:nil isUpdating:YES notes:notes execute:nil sendEmail:NO];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -94,7 +94,7 @@
       }] resume];
 }
 
-+ (void)BookNewAppointmentForStaffID:(NSString*)staffID withClientID:(NSString*)clientID atLocationID:(NSString*)locationID payWithService:(NSString*)serviceID lengthBySessionTypeID:(NSString*)sessionTypeID startDateTime:(NSDate*)startTime notesOrNil:(NSString*)notes sendEmail:(BOOL)sendEmail withBlock:(void (^)(AppointmentResult *result))block
++ (void)BookNewAppointmentWithStaffID:(NSString*)staffID clientID:(NSString*)clientID locationID:(NSString*)locationID payWithService:(NSString*)serviceID lengthBySessionTypeID:(NSString*)sessionTypeID startDateTime:(NSDate*)startTime notesOrNil:(NSString*)notes sendEmail:(BOOL)sendEmail withBlock:(void (^)(AppointmentResult *result))block
 {
     NSURLRequest *request = [XMLApptService SOAPAddOrUpdateAppointments:nil staffID:staffID clientID:clientID locationID:locationID serviceID:serviceID sessionTypeID:sessionTypeID startDateTime:startTime isUpdating:YES notes:notes execute:nil sendEmail:sendEmail];
     NSURLSession *session = [NSURLSession sharedSession];

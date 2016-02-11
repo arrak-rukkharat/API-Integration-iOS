@@ -24,7 +24,7 @@
     {
         [self setTitle:@"Client Detail"];
         
-        [ClientService GetClients:[[NSArray alloc] initWithObjects:clientID, nil] withBlock:^(ClientsResult *result)
+        [ClientService GetClientsByIDs:[[NSArray alloc] initWithObjects:clientID, nil] withBlock:^(ClientsResult *result)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (result.ErrorCode == 200 && result.Clients && result.Clients.count > 0)
@@ -35,7 +35,7 @@
             });
         }];
         
-        [ClientService GetClientAccountBalances:clientID withBlock:^(ClientAccountBalancesResult *result)
+        [ClientService GetAccountBalancesWithClientID:clientID withBlock:^(ClientAccountBalancesResult *result)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (result.ErrorCode == 200)

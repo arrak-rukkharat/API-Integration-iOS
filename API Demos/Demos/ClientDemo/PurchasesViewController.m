@@ -27,7 +27,7 @@
         NSDate *start = [Utils convertISOToDate:@"2010-01-01T00:00:00"];
         NSDate *end = [Utils convertISOToDate:@"2020-01-01T00:00:00"];
         
-        [ClientService GetClientPurchases:clientID startDate:start endDate:end withBlock:^(PurchasesResult *result)
+        [ClientService GetClientPurchasesWithClientID:clientID startDate:start endDate:end withBlock:^(PurchasesResult *result)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (result.ErrorCode == 200)

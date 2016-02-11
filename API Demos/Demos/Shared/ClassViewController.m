@@ -35,7 +35,7 @@
 - (void)loadClasses
 {
     [progressDialog show];
-    [ClassService GetClassesFromDate:startDate toDate:endDate showOnlyEnrollables:YES withBlock:^(ClassesResult *result)
+    [ClassService GetClassesBetweenDate:startDate andDate:endDate withinSchedulingWindow:YES withBlock:^(ClassesResult *result)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             

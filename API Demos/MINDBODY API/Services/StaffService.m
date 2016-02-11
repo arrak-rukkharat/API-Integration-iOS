@@ -35,7 +35,7 @@
       }] resume];
 }
 
-+ (void)GetStaffWithStaffIds:(NSArray*)staffIDs WithBlock:(void (^)(StaffMembersResult* result))block
++ (void)GetStaffWithStaffIDs:(NSArray*)staffIDs WithBlock:(void (^)(StaffMembersResult* result))block
 {
     NSURLRequest *request = [XMLStaffService SOAPGetStaff:staffIDs];
     NSURLSession *session = [NSURLSession sharedSession];

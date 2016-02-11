@@ -18,15 +18,13 @@
 @interface SiteService : NSObject
 /*!
  Search for sites that the source has access to. The search is based on the site title and site ID
- @param text search text
  */
-+ (void)SearchSites:(NSString*)text withBlock:(void (^)(SitesResult* result))block;
+//+ (void)SearchSites:(NSString*)text withBlock:(void (^)(SitesResult* result))block;
 
 /*!
  Get a list of sites related to the given site ID
- @param siteID site ID
  */
-+ (void)GetSitesRelatedToSiteID:(NSString*)siteID withBlock:(void (^)(SitesResult* result))block;
+//+ (void)GetSitesRelatedToSiteID:(NSString*)siteID withBlock:(void (^)(SitesResult* result))block;
 
 /*!
  Retrive a list of locations for the current source
@@ -54,7 +52,7 @@
 + (void)GetSessionTypesWithBlock:(void (^)(SessionTypesResult* result))block;
 
 /*!
- Retrive a list of session types filterd by the service category
+ Retrive a list of session types filterd by the service category IDs (NSString)
  */
 + (void)GetSessionTypesByserviceCategoryIDs:(NSMutableArray*)progIDs withBlock:(void (^)(SessionTypesResult* result))block;
 @end

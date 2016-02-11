@@ -49,14 +49,14 @@
     
     [soap appendString:[NSString stringWithFormat:@"<RequirePayment>%@</RequirePayment>", (requirePayment ? @"true" : @"false")]];
     
-    [soap appendString:[NSString stringWithFormat:@"<SendEmail>%@</SendEmail>", (sendEmail ? @"true" : @"false")]];
+    //[soap appendString:[NSString stringWithFormat:@"<SendEmail>%@</SendEmail>", (sendEmail ? @"true" : @"false")]];
     
-    [soap appendString:[NSString stringWithFormat:@"<Waitlist>%@</Waitlist>", (waitlist ? @"true" : @"false")]];
+    //[soap appendString:[NSString stringWithFormat:@"<Waitlist>%@</Waitlist>", (waitlist ? @"true" : @"false")]];
     
     [soap appendString:@"<XMLDetail>Full</XMLDetail>"];
     [soap appendString:@"</Request></AddClientsToClasses></soapenv:Body></soapenv:Envelope>"];
     
-     //NSLog(@"%@", soap);
+     NSLog(@"%@", soap);
     
     NSURL *url = [NSURL URLWithString:ENDPOINT_CLASS];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];

@@ -30,7 +30,7 @@
 - (IBAction)submit
 {
     NSLog(@"submit");
-    [ClientService ValidateLogin:self.tfUsername.text password:self.tfPassword.text withBlock:^(ClientResult *result)
+    [ClientService ValidateLoginWithUsername:self.tfUsername.text password:self.tfPassword.text withBlock:^(ClientResult *result)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             

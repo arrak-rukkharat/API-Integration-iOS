@@ -41,7 +41,7 @@
     NSDate *today = [NSDate date];
     NSDate *endDate = [NSDate dateWithTimeInterval:FUTURE_TIME sinceDate:today];
     
-    [AppointmentService GetAppointmentsForStaffID:currentStaffID fromDate:today toDate:endDate withBlock:^(AppointmentsResult *result)
+    [AppointmentService GetStaffAppointmentsWithStaffID:currentStaffID betweenDate:today andDate:endDate withBlock:^(AppointmentsResult *result)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (result.ErrorCode == 200)

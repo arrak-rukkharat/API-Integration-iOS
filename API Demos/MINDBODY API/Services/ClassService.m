@@ -22,7 +22,7 @@
       }] resume];
 }
 
-+ (void)GetClassesFromDate:(NSDate*)startDate toDate:(NSDate*)endDate showOnlyEnrollables:(BOOL)enrollable withBlock:(void (^)(ClassesResult* result))block
++ (void)GetClassesBetweenDate:(NSDate*)startDate andDate:(NSDate*)endDate withinSchedulingWindow:(BOOL)enrollable withBlock:(void (^)(ClassesResult* result))block
 {
     NSURLRequest *request = [XMLClassService SOAPGetClasses:nil staffIDs:nil startDateTime:startDate endDateTime:endDate clientID:nil serviceCategoryIDs:nil sessionTypeIDs:nil locationIDs:nil schedulingWindow:enrollable];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -59,7 +59,7 @@
       }] resume];
 }
 
-+ (void)AddClient:(NSString*)clientID toClass:(NSString*)classID serviceID:(NSString*)serviceID sendClientEmail:(BOOL)sendEmail withBlock:(void (^)(ClassResult* result))block
++ (void)AddClientToClassWithClientID:(NSString*)clientID classID:(NSString*)classID serviceID:(NSString*)serviceID sendClientEmail:(BOOL)sendEmail withBlock:(void (^)(ClassResult* result))block
 {
     NSURLRequest *request = [XMLClassService SOAPAddClientToClass:classID clientID:clientID waitlist:false sendEmail:sendEmail requirePayment:YES serviceID:serviceID];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -71,7 +71,7 @@
       }] resume];
 }
 
-+ (void)CancelClass:(NSString*)classID sendClientEmail:(BOOL)sendClientEmail sendStaffEmail:(BOOL)sendStaffEmail withBlock:(void (^)(ClassResult* result))block
++ (void)CancelClassWithClassID:(NSString*)classID sendClientsEmail:(BOOL)sendClientEmail sendStaffEmail:(BOOL)sendStaffEmail withBlock:(void (^)(ClassResult* result))block
 {
     NSURLRequest *request = [XMLClassService SOAPCancelClass:classID sendClientEmail:sendClientEmail sendStaffEmail:sendStaffEmail];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -83,7 +83,7 @@
       }] resume];
 }
 
-+ (void)RemoveClient:(NSString*)clientID fromClass:(NSString*)classID sendClientEmail:(BOOL)sendClientEmail markAsLateCancel:(BOOL)lateCancel withBlock:(void (^)(ClassResult* result))block
++ (void)RemoveClientFromClassWithClientID:(NSString*)clientID classID:(NSString*)classID sendClientEmail:(BOOL)sendClientEmail markAsLateCancel:(BOOL)lateCancel withBlock:(void (^)(ClassResult* result))block
 {
     NSURLRequest *request = [XMLClassService SOAPDropClient:clientID fromClass:classID sendClientEmail:sendClientEmail lateCancel:lateCancel];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -131,7 +131,7 @@
       }] resume];
 }
 
-+ (void)GetCoursesFromDate:(NSDate*)startDate toDate:(NSDate*)endDate withBlock:(void (^)(CoursesResult *result))block
++ (void)GetCoursesBetweenDates:(NSDate*)startDate andDate:(NSDate*)endDate withBlock:(void (^)(CoursesResult *result))block
 {
     NSURLRequest *request = [XMLClassService SOAPGetCourses:nil staffIDs:nil startDateTime:startDate endDateTime:endDate serviceCategoryIDs:nil semesterIDs:nil locationIDs:nil];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -143,7 +143,7 @@
       }] resume];
 }
 
-+ (void)GetEnrollmentsFromDate:(NSDate*)startDateTime toDate:(NSDate*)endDateTime withBlock:(void (^)(ClassSchedulesResult *result))block
++ (void)GetEnrollmentsBetweenDates:(NSDate*)startDateTime andDate:(NSDate*)endDateTime withBlock:(void (^)(ClassSchedulesResult *result))block
 {
     NSURLRequest *request = [XMLClassService SOAPGetEnrollments:nil staffIDs:nil startDateTime:startDateTime endDateTime:endDateTime serviceCategoryIDs:nil semesterIDs:nil locationIDs:nil sessionTypeIDs:nil classScheduleIDs:nil];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -179,7 +179,7 @@
       }] resume];
 }
 
-+ (void)GetWaitlistByClassScheduleID:(NSString*)classScheduleID hidePastEntries:(NSString*)hidePastEntries withBlock:(void (^)(WaitlistEntriesResult *result))block
++ (void)GetClassWaitlistWithClassScheduleID:(NSString*)classScheduleID hidePastEntries:(NSString*)hidePastEntries withBlock:(void (^)(WaitlistEntriesResult *result))block
 {
     NSURLRequest *request = [XMLClassService SOAPGetWaitlistByClassID:nil byEntryID:nil byClassScheduleID:classScheduleID byClientID:nil hidePastEntries:hidePastEntries];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -192,7 +192,7 @@
 }
 
 
-+ (void)GetWaitlistByClassID:(NSString*)classID hidePastEntries:(NSString*)hidePastEntries withBlock:(void (^)(WaitlistEntriesResult *result))block
++ (void)GetClassWaitlistWithClassID:(NSString*)classID hidePastEntries:(NSString*)hidePastEntries withBlock:(void (^)(WaitlistEntriesResult *result))block
 {
     NSURLRequest *request = [XMLClassService SOAPGetWaitlistByClassID:classID byEntryID:nil byClassScheduleID:nil byClientID:nil hidePastEntries:hidePastEntries];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -204,7 +204,7 @@
       }] resume];
 }
 
-+ (void)GetWaitlistByClientID:(NSString*)clientID hidePastEntries:(NSString*)hidePastEntries withBlock:(void (^)(WaitlistEntriesResult *result))block
++ (void)GetClassWaitlistWithClientID:(NSString*)clientID hidePastEntries:(NSString*)hidePastEntries withBlock:(void (^)(WaitlistEntriesResult *result))block
 {
     NSURLRequest *request = [XMLClassService SOAPGetWaitlistByClassID:nil byEntryID:nil byClassScheduleID:nil byClientID:clientID hidePastEntries:hidePastEntries];
     NSURLSession *session = [NSURLSession sharedSession];
