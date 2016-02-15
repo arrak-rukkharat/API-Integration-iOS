@@ -3,6 +3,10 @@ MINDBODY SOAP API integration in Objective-C
 
 This is a SOAP API facade and a demo for the API. This wrapper lets you integrate with the SOAP API with ease. The layer provides easy setup for the data access information and lets you build your own functions to fit your needs.
 
+Checkout the demo
+
+https://www.youtube.com/watch?v=VnPNObdSnLo&feature=youtu.be
+
 ##Key features:
 - Demonstrates simple API workflows including user validation, class booking, appointment booking, account payment processing, purchasing services, client and staff information, client schedules, and more!
 - Easy integration (SDK like)
